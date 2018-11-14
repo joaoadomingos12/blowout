@@ -22,6 +22,7 @@ public class Event {
         this.coordinates = coordinates;
         this.distance=distance;
         loadImage();
+
     }
 
     public Integer getId() {

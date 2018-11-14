@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Blowout extends AppCompatActivity {
 
     private TextView mTextMessage;
-    private RecyclerView recyclerView;
+
     private RecyclerAdapter mAdapter;
     private HashMap<Integer,Event> events = new HashMap<Integer,Event>();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -45,10 +45,16 @@ public class Blowout extends AppCompatActivity {
         setContentView(R.layout.activity_blowout);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        RecyclerHandler rH = new RecyclerHandler(events);
+        RecyclerView recycler=findViewById(R.id.cards);
+        RecyclerHandler rH = new RecyclerHandler(events,recycler);
         Thread test = new Thread(rH);
         test.start();
+        try {
+            test.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        rH.showItems();
 
 
     }
